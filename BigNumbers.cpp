@@ -125,12 +125,12 @@ bool BigNumbers::isSmaller(BigNumbers const& big)
 {
 	int n1 = nums.size();
 	int n2 = big.nums.size();
-
+	//Check the sizes first
 	if (n1 < n2)
 		return true;
 	if (n2 < n1)
 		return false;
-
+	//Check each element
 	for (int i = 0; i < n1; i++)
 		if (nums.at(i) < big.nums.at(i))
 			return true;
@@ -193,7 +193,8 @@ BigNumbers BigNumbers::add(BigNumbers const& big)
 			else {
 				carry = 0;
 			}
-			//std::cout << "Adding both, Result: " << temp << std::endl;
+			
+			//Increase returnMe size and put in the new value
 			returnMe.size++;
 			returnMe.nums.insert(returnMe.nums.begin(), temp);
 		}
@@ -207,6 +208,7 @@ BigNumbers BigNumbers::add(BigNumbers const& big)
 			else {
 				carry = 0;
 			}
+			//Increase returnMe size and put in the new value
 			returnMe.size++;
 			returnMe.nums.insert(returnMe.nums.begin(), temp);
 			//std::cout << "Adding First Only, Result: " << temp << std::endl;
@@ -221,17 +223,17 @@ BigNumbers BigNumbers::add(BigNumbers const& big)
 			else {
 				carry = 0;
 			}
+			//Increase returnMe size and put in the new value
 			returnMe.size++;
 			returnMe.nums.insert(returnMe.nums.begin(), temp);
-			//std::cout << "Adding Second Only, Result: " << temp << std::endl;
+			
 		}
 		else {
-			//finally we just check the final value for a carry
+			//finally we just check the final value for a carry 
 			if (carry == 1) {
 				returnMe.size++;
 				returnMe.nums.insert(returnMe.nums.begin(), 1);
 			}
-			//std::cout << "End was reached and X= " << x << std::endl;
 		}
 	}
 	return returnMe;
@@ -424,7 +426,8 @@ BigNumbers BigNumbers::multiply(BigNumbers const& big)
 	while (indexTwo >= 0) {
 		indexOne = nums.size() - 1;
 		while (indexOne >= 0) {
-
+			//This is just basic multiplication we do by hand. Multiple each element in to the all elemenets of the upper and shift over
+			//BY 10 each time
 			temp.nums.insert(temp.nums.begin(), nums.at(indexOne) * big.nums.at(indexTwo) * pow(10, power));
 			indexOne--;
 		}
@@ -478,7 +481,7 @@ BigNumbers BigNumbers::divide(BigNumbers const& big)
 	//Check Basic Cases first
 	if (big.nums.size() == 1 && big.nums.at(0) == 0) {
 		//error divide by zero
-		std::cout << "Can not divide by Zero, returning null" << std::endl;
+		throw "Can not divide by zero!";
 		return returnMe;
 	}
 
